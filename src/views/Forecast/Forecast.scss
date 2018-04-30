@@ -1,0 +1,52 @@
+@import '../scss/variables';
+
+.forecast__container {
+	width: 100%;
+	margin: auto;
+	position: relative;
+}
+
+.forecast__wrapper {
+	border-left: $border;
+	border-right: $border;
+	border-bottom: $border;
+	border-bottom-left-radius: 6px;
+	border-bottom-right-radius: 6px;
+}
+
+.forecast__header {
+	font-size: 0.8rem;
+	display: flex;
+	align-items: center;
+	& > h2 {
+		margin: auto 0.3rem;
+	}
+	& > span {
+		flex: 1 1 auto;
+		height: 1px;
+		border-bottom: $border;
+	}
+}
+
+.forecast {
+	width: 100%;
+	margin-top:  1.6rem;
+	margin-bottom:  1.2rem;
+	padding: 0 0.1rem;
+	text-align: left;
+	font-size: 0.9rem;
+	display: flex;
+	flex-wrap: wrap;
+	overflow: hidden;
+}
+
+.forecast__three-hour {
+	text-align: center;
+	flex-grow: 1;
+}
+
+.forecast__time,
+.forecast__icon,
+.forecast__temp {
+	height: 1.5rem;
+}

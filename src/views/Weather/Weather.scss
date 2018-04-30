@@ -1,0 +1,39 @@
+@import '../scss/variables';
+
+.weather__container {
+	width: 100%;
+	margin: auto;
+	position: relative;
+}
+
+.weather {
+	width: 100%;
+	display: flex;
+	border-left: $border;
+	border-right: $border;
+	overflow: hidden;
+	padding: 0 0.3rem;
+}
+
+.weather__city,
+.weather__icon,
+.weather__temp {
+	line-height: 5rem;
+	flex-grow: 1;
+}
+
+.weather__city {
+	font-size: 1.5rem;
+	font-weight: bold;
+	margin: 0;
+	white-space: nowrap;
+}
+
+.weather__icon {
+	text-align: center;
+	font-size: 2rem;
+}
+
+.weather__temp {
+	font-size: 2rem;
+}

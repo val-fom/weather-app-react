@@ -1,0 +1,56 @@
+@import '../scss/variables';
+
+.footer__container {
+	margin-top: auto;
+	flex: 1 0 auto;
+	display: flex;
+	flex-direction: column-reverse;
+}
+
+footer {
+	width: 100%;
+	margin: 1.7rem auto;
+	display: flex;
+	justify-content: center;
+}
+
+.footer__link img {
+	width: 1.2rem;
+}
+
+.footer__link {
+	padding: 0  0.2rem;
+	position: relative;
+	transition: $transition;
+	&:hover,
+	&:focus {
+		outline: none;
+		transform: translateY(-1px);
+	}
+	&::before {
+		position: absolute;
+		color: transparent;
+		width: 4rem;
+		transition: $transition;
+	}
+	&:hover::before {
+		color: $main-color;
+	}
+	&:active {
+		transform: translateY(1px);
+	}
+}
+
+.footer__link-gh {
+	&::before {
+		content: 'src -';
+		left: -4rem;
+	}
+}
+
+.footer__link-owm {
+	&::before {
+		content: '- api';
+		right: -4rem;
+	}
+}

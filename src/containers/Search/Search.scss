@@ -1,0 +1,50 @@
+@import '../scss/variables';
+
+.search__container {
+	width: 100%;
+	margin: auto;
+	position: relative;
+}
+
+.search__input {
+	z-index: 1;
+	width: 100%;
+	padding: 4px;
+	border: $border;
+	font-size: 16px;
+	border-radius: 6px;
+	font-family: inherit;
+	transition: $transition;
+	text-align: center;
+	line-height: 1.4rem;
+}
+
+.search__input:focus {
+	outline: none;
+	box-shadow: 0px 0px 10px 0px #ccc;
+}
+
+.search__input::-webkit-input-placeholder {
+	color: #999;
+	font-size: 0.7rem;
+	text-align: center;
+}
+
+[data-is-valid="false"] {
+	animation: blink 1s;
+}
+
+@keyframes blink {
+	0% {
+		background-color: $blink-color;
+	}
+	100% {
+		background-color: #fff;
+	}
+}
+
+.search__button {
+	position: absolute;
+	font-size: 0.8rem;
+	top: 0.15rem;
+}
