@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import './scss/app.css';
+
 import getAllForecast from './utils/api';
 import { getCityFromUrl, setCityTitle, pushHistoryState } from './utils';
 
@@ -24,16 +26,23 @@ class App extends Component {
       isFound: true,
     };
   }
+  componentDidMount() {
+    window.onpopstate = ev => {
+      this.onPopHistoryState(ev.state.city, ev.state.units);
+    };
 
-  onSearchSubmit(city) {
+    this.onSearchSubmit();
+  }
+
+  onSearchSubmit = city => {
     this.updateCityResponse({ city })
       .then(pushHistoryState)
       .catch(console.error);
-  }
+  };
 
-  onUnitsToggle(units) {
+  onUnitsToggle = units => {
     this.updateCityResponse({ units }).then(pushHistoryState);
-  }
+  };
 
   onPopHistoryState(city, units) {
     this.updateCityResponse({ city, units });
@@ -48,7 +57,7 @@ class App extends Component {
       .catch(console.error);
   }
 
-  computeNextState({ weatherResponse, forecastResponse, units }) {
+  computeNextState = ({ weatherResponse, forecastResponse, units }) => {
     const city = `${weatherResponse.name},${weatherResponse.sys.country}`;
     return {
       weatherResponse,
@@ -57,11 +66,9 @@ class App extends Component {
       city,
       isFound: true,
     };
-  }
+  };
 
-  computeNotFoundState() {
-    return { isFound: false };
-  }
+  computeNotFoundState = () => ({ isFound: false });
 
   componentsStateWillUpdate(nextState) {
     if (nextState.city !== this.state.city) setCityTitle(nextState.city);
@@ -73,12 +80,12 @@ class App extends Component {
     return (
       <div>
         <Header />
-        <Search city={city} isFound={isFound} />
-        <History city={city} />
-        <Favourites city={city} />
+        <Search city={city} isFound={isFound} onSubmit={this.onSearchSubmit} />
+        <History city={city} onClick={this.onSearchSubmit} />
+        <Favourites city={city} onClick={this.onSearchSubmit} />
         <Weather city={city} weatherResponse={weatherResponse} />
         <Forecast city={city} forecastResponse={forecastResponse} />
-        <Units />
+        <Units onToggle={this.onUnitsToggle} />
         <Footer />
       </div>
     );

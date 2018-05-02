@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "octicons": "^7.1.0",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
+    "react-octicon": "^3.0.1",
     "react-scripts": "1.1.4"
   },
   "scripts": {
