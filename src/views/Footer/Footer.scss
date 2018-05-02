@@ -1,4 +1,4 @@
-@import '../scss/variables';
+@import "../../scss/variables";
 
 .footer__container {
 	margin-top: auto;
@@ -19,7 +19,7 @@ footer {
 }
 
 .footer__link {
-	padding: 0  0.2rem;
+	padding: 0 0.2rem;
 	position: relative;
 	transition: $transition;
 	&:hover,
@@ -43,14 +43,14 @@ footer {
 
 .footer__link-gh {
 	&::before {
-		content: 'src -';
+		content: "src -";
 		left: -4rem;
 	}
 }
 
 .footer__link-owm {
 	&::before {
-		content: '- api';
+		content: "- api";
 		right: -4rem;
 	}
 }

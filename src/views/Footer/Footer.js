@@ -1,28 +1,17 @@
-require('./Footer.scss');
-const octicons = require("octicons");
+import React, { Component } from 'react';
+import './Footer.css';
+import owmLogo from './owmLogo.svg';
+import octicons from 'octicons';
 
-import { Component } from '../Framework';
+const Footer = () => (
+  <footer>
+    <a href="https://github.com/val-fom/weather-app" className="footer__link footer__link-gh">
+      {octicons['mark-github'].toSVG({ width: 19.2 })}
+    </a>
+    <a href="https://openweathermap.org/api" className="footer__link footer__link-owm">
+      <img src={owmLogo} alt="" />
+    </a>
+  </footer>
+);
 
-export default class Footer extends Component {
-	constructor() {
-		super();
-
-		this.host = document.createElement('div');
-		this.host.classList.add('footer__container');
-	}
-
-	render() {
-		return `
-<footer>
-	<a href="https://github.com/val-fom/weather-app"
-		class="footer__link footer__link-gh">
-		${octicons['mark-github'].toSVG({ "width": 19.2 })}
-	</a>
-	<a href="https://openweathermap.org/api"
-		class="footer__link footer__link-owm">
-		<img src="img/logo_OpenWeatherMap_orange.svg" alt="">
-	</a>
-</footer>
-		`;
-	}
-}
+export default Footer;

@@ -1,4 +1,4 @@
-@import '../scss/variables';
+@import "../../scss/variables";
 
 .history__container {
 	width: 100%;
@@ -15,7 +15,7 @@
 	overflow: hidden;
 	position: relative;
 	&::before {
-		content: '';
+		content: "";
 		width: 10%;
 		height: 100%;
 		position: absolute;

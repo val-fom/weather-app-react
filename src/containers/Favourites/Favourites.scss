@@ -1,4 +1,4 @@
-@import '../scss/variables';
+@import "../../scss/variables";
 
 .favourites__container {
 	width: 100%;
@@ -19,7 +19,7 @@
 	border-top-right-radius: 6px;
 	overflow: hidden;
 	&::before {
-		content: 'click + to add the city to your favourites';
+		content: "click + to add the city to your favourites";
 		width: 100%;
 		color: #999;
 		font-size: 0.7rem;
@@ -50,13 +50,12 @@
 	transition: $transition;
 	cursor: pointer;
 	&:hover,
-	&:focus	{
+	&:focus {
 		outline: none;
 		box-shadow: inset 0px 0px 8px 0px #aaa;
 	}
 	&:active {
-		box-shadow: inset 0px 1px 8px 0px #aaa,
-					 						0px -1px 8px 0px #aaa;
+		box-shadow: inset 0px 1px 8px 0px #aaa, 0px -1px 8px 0px #aaa;
 		transform: translateY(1px);
 	}
 }
