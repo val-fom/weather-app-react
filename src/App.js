@@ -26,6 +26,7 @@ class App extends Component {
       isFound: true,
     };
   }
+
   componentDidMount() {
     window.onpopstate = ev => {
       this.onPopHistoryState(ev.state.city, ev.state.units);
@@ -51,9 +52,10 @@ class App extends Component {
   updateCityResponse({ city, units }) {
     city = city || this.state.city;
     units = units || this.state.units;
+    // debugger;
     return getAllForecast(city, units)
       .then(this.computeNextState, this.computeNotFoundState)
-      .then(this.updateState)
+      .then(nextState => this.setState(nextState))
       .catch(console.error);
   }
 
