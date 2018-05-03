@@ -52,10 +52,12 @@ class App extends Component {
   updateCityResponse({ city, units }) {
     city = city || this.state.city;
     units = units || this.state.units;
-    // debugger;
     return getAllForecast(city, units)
       .then(this.computeNextState, this.computeNotFoundState)
-      .then(nextState => this.setState(nextState))
+      .then(nextState => {
+        this.setState(nextState);
+        return nextState;
+      })
       .catch(console.error);
   }
 
