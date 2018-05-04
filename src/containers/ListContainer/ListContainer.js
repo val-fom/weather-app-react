@@ -37,7 +37,7 @@ export default class ListContainer extends Component {
   handleClick = ev => {
     ev.preventDefault();
     const city = ev.target.innerHTML;
-    this.props.onClick(city);
+    this.props.handleClick(city);
   };
 
   render() {

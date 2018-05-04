@@ -8,8 +8,8 @@ import { getCityFromUrl, setCityTitle, pushHistoryState } from './utils';
 import Header from './views/Header';
 import Search from './containers/Search';
 import ListContainer from './containers/ListContainer';
-/**/ import HistoryList from './views/History';
-/**/ import FavouritesList from './views/Favourites';
+/**/ import History from './views/History';
+/**/ import Favourites from './views/Favourites';
 import Weather from './views/Weather';
 import Forecast from './views/Forecast';
 import Units from './views/Units';
@@ -30,25 +30,31 @@ export default class App extends Component {
 
   componentDidMount() {
     window.onpopstate = ev => {
-      this.onPopHistoryState(ev.state.city, ev.state.units);
+      if (ev.state) {
+        const { city, units } = ev.state;
+        this.updateCityResponse({ city, units });
+      } else {
+        const city = getCityFromUrl();
+        if (city) this.updateCityResponse({ city });
+      }
     };
 
-    this.onSearchSubmit();
+    this.search();
   }
 
-  onSearchSubmit = city => {
+  componentDidUpdate() {
+    setCityTitle(this.state.city);
+  }
+
+  search = city => {
     this.updateCityResponse({ city })
       .then(pushHistoryState)
       .catch(console.error);
   };
 
-  onPopHistoryState(city, units) {
-    this.updateCityResponse({ city, units });
-  }
-
   toggleUnits = () => {
     const units = this.state.units === 'metric' ? 'imperial' : 'metric';
-    localStorage.setItem(units);
+    localStorage.setItem('units', units);
     this.setState({ units });
     this.updateCityResponse({ units }).then(pushHistoryState);
   };
@@ -88,9 +94,9 @@ export default class App extends Component {
     return (
       <div>
         <Header />
-        <Search city={city} isFound={isFound} onSubmit={this.onSearchSubmit} />
-        <ListContainer listName="history" inner={HistoryList} city={city} onClick={this.onSearchSubmit} />
-        <ListContainer listName="favourites" inner={FavouritesList} city={city} onClick={this.onSearchSubmit} />
+        <Search city={city} isFound={isFound} onSubmit={this.search} />
+        <ListContainer listName="history" inner={History} city={city} handleClick={this.search} />
+        <ListContainer listName="favourites" inner={Favourites} city={city} handleClick={this.search} />
         <Weather city={city} weatherResponse={weatherResponse} />
         <Forecast city={city} forecastResponse={forecastResponse} />
         <Units handleClick={this.toggleUnits} units={units} />
@@ -99,4 +105,3 @@ export default class App extends Component {
     );
   }
 }
-
