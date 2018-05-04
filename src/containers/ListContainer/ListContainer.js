@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import './Favourites.css';
-
 export default class ListContainer extends Component {
   constructor(props) {
     super(props);
@@ -11,6 +9,10 @@ export default class ListContainer extends Component {
       listName: this.props.listName,
       list: JSON.parse(localStorage.getItem('favourites')) || [],
     };
+  }
+
+  getSnapshotBeforeUpdate() {
+    if (this.state.listName === 'history') this.add();
   }
 
   add = () => {

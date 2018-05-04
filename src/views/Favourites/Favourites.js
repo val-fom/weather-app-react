@@ -1,6 +1,7 @@
 import React from 'react';
+import './Favourites.css';
 
-const FavouritesList = ({ list, handleClick, add, clear }) => (
+const Favourites = ({ list, handleClick, add, clear }) => (
   <div className="favourites__container">
     <ul className="favourites">
       {list
@@ -22,4 +23,4 @@ const FavouritesList = ({ list, handleClick, add, clear }) => (
   </div>
 );
 
-export default FavouritesList;
+export default Favourites;
