@@ -1,65 +1,74 @@
 import React, { Component } from 'react';
-
 import './Search.css';
 
 export default class Search extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isValid: true,
-      inputValue: null,
-    };
-
-    this.host = document.createElement('div');
-    this.host.classList.add('search__container');
-
-    this.form = document.createElement('form');
-    this.form.classList.add('search');
-
-    this.input = document.createElement('input');
-    this.input.classList.add('search__input');
-    this.input.name = 'search';
-    this.input.placeholder = 'type city name and press enter';
-
-    this.input.addEventListener('mouseup', () => this.input.setSelectionRange(0, 999));
-
-    this.button = document.createElement('button');
-    this.button.classList.add('button', 'search__button');
-    this.button.title = 'search';
-    this.button.innerHTML = '<i class="fa fa-search" aria-hidden="true"></i>';
-
-    this.form.append(this.input, this.button);
-
-    this.handleSubmit = this.handleSubmit.bind(this);
-
-    this.host.addEventListener('submit', this.handleSubmit);
+  static getDerivedStateFromProps(nextProps, prevState) {
+    return nextProps.isFound
+      ? {
+          inputValue: nextProps.city,
+          badInputValue: null,
+          isValid: true,
+        }
+      : {
+          badInputValue: prevState.inputValue,
+          inputValue: `city '${prevState.inputValue}' not found`,
+          isValid: false,
+        };
   }
 
-  handleSubmit(ev) {
+  state = {
+    isValid: true,
+    inputValue: null,
+    badInputValue: null,
+  };
+
+  handleChange = ev => {
+    const { badInputValue } = this.state;
+
+    const nextState = badInputValue
+      ? {
+          inputValue: badInputValue,
+          badInputValue: null,
+        }
+      : {
+          inputValue: ev.target.value,
+        };
+
+    this.setState(nextState);
+  };
+
+  handleSubmit = ev => {
     ev.preventDefault();
-    const inputValue = ev.target.elements.search.value.trim();
-    if (!inputValue) {
-      this.updateState({ isValid: false });
+    const { inputValue, badInputValue } = this.state;
+
+    if (badInputValue) return;
+
+    if (!inputValue.trim()) {
+      this.setState({ isValid: false });
     } else {
-      this.updateState({ isValid: true, inputValue });
-      this.props.onSubmit(inputValue);
+      this.setState({ isValid: true });
+      this.props.onSubmit(inputValue.trim());
     }
-  }
+  };
 
   render() {
-    return <div>search</div>;
-    let { isFound, city } = this.props;
-    let { isValid, inputValue } = this.state;
-    isValid = isValid && isFound;
+    const { isValid, inputValue } = this.state;
 
-    if (!isFound) {
-      city = `city \'${inputValue}\' not found`;
-    }
-
-    this.input.dataset.isValid = isValid;
-    this.input.value = city;
-
-    return this.form;
+    return (
+      <form onSubmit={this.handleSubmit} className="search">
+        <input
+          onMouseUp={e => e.target.setSelectionRange(0, 999)}
+          onChange={this.handleChange}
+          className="search__input"
+          name="search"
+          placeholder="type city name and press enter"
+          data-is-valid={isValid}
+          value={inputValue}
+        />
+        <button className="button search__button" title="search">
+          <i className="fa fa-search" aria-hidden="true" />
+        </button>
+      </form>
+    );
   }
 }

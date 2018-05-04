@@ -1,5 +1,5 @@
 export const getCityFromUrl = () => {
-  const hash = window.location.hash;
+  const { hash } = window.location;
   if (hash.startsWith('#/')) {
     const city = hash.slice(2);
     return decodeURI(city);
@@ -7,7 +7,7 @@ export const getCityFromUrl = () => {
 };
 
 export const pushHistoryState = ({ city, units }) => {
-  window.history.pushState({ city, units }, null, `#/${city}`);
+  if (city) window.history.pushState({ city, units }, null, `#/${city}`);
 };
 
 export const setCityTitle = city => {
