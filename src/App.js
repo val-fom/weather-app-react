@@ -12,10 +12,10 @@ import ListContainer from './containers/ListContainer';
 /**/ import FavouritesList from './views/Favourites';
 import Weather from './views/Weather';
 import Forecast from './views/Forecast';
-import Units from './containers/Units';
+import Units from './views/Units';
 import Footer from './views/Footer';
 
-class App extends Component {
+export default class App extends Component {
   constructor(props) {
     super(props);
 
@@ -23,7 +23,7 @@ class App extends Component {
       weatherResponse: null,
       forecastResponse: null,
       city: getCityFromUrl() || 'Kyiv,UA',
-      units: localStorage.units || 'metric',
+      units: localStorage.getItem('units') || 'metric',
       isFound: true,
     };
   }
@@ -42,13 +42,16 @@ class App extends Component {
       .catch(console.error);
   };
 
-  onUnitsToggle = units => {
-    this.updateCityResponse({ units }).then(pushHistoryState);
-  };
-
   onPopHistoryState(city, units) {
     this.updateCityResponse({ city, units });
   }
+
+  toggleUnits = () => {
+    const units = this.state.units === 'metric' ? 'imperial' : 'metric';
+    localStorage.setItem(units);
+    this.setState({ units });
+    this.updateCityResponse({ units }).then(pushHistoryState);
+  };
 
   updateCityResponse({ city, units }) {
     city = city || this.state.city;
@@ -80,7 +83,7 @@ class App extends Component {
   }
 
   render() {
-    const { city, weatherResponse, forecastResponse, isFound } = this.state;
+    const { city, weatherResponse, forecastResponse, isFound, units } = this.state;
 
     return (
       <div>
@@ -90,11 +93,10 @@ class App extends Component {
         <ListContainer listName="favourites" inner={FavouritesList} city={city} onClick={this.onSearchSubmit} />
         <Weather city={city} weatherResponse={weatherResponse} />
         <Forecast city={city} forecastResponse={forecastResponse} />
-        <Units onToggle={this.onUnitsToggle} />
+        <Units handleClick={this.toggleUnits} units={units} />
         <Footer />
       </div>
     );
   }
 }
 
-export default App;
