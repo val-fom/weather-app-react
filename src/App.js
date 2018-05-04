@@ -7,8 +7,9 @@ import { getCityFromUrl, setCityTitle, pushHistoryState } from './utils';
 
 import Header from './views/Header';
 import Search from './containers/Search';
-import History from './containers/History';
-import Favourites from './containers/Favourites';
+// import History from './containers/History';
+import ListContainer from './containers/ListContainer';
+import FavouritesList from './views/FavouritesList';
 import Weather from './views/Weather';
 import Forecast from './views/Forecast';
 import Units from './containers/Units';
@@ -85,8 +86,8 @@ class App extends Component {
       <div>
         <Header />
         <Search city={city} isFound={isFound} onSubmit={this.onSearchSubmit} />
-        <History city={city} onClick={this.onSearchSubmit} />
-        <Favourites city={city} onClick={this.onSearchSubmit} />
+        <ListContainer listName="history" city={city} onClick={this.onSearchSubmit} />
+        <ListContainer listName="favourites" inner={FavouritesList} city={city} onClick={this.onSearchSubmit} />
         <Weather city={city} weatherResponse={weatherResponse} />
         <Forecast city={city} forecastResponse={forecastResponse} />
         <Units onToggle={this.onUnitsToggle} />
