@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 
 import './scss/app.css';
 
@@ -92,7 +92,7 @@ export default class App extends Component {
     const { city, weatherResponse, forecastResponse, isFound, units } = this.state;
 
     return (
-      <div>
+      <Fragment>
         <Header />
         <Search city={city} isFound={isFound} onSubmit={this.search} />
         <ListContainer listName="history" inner={History} city={city} handleClick={this.search} />
@@ -101,7 +101,7 @@ export default class App extends Component {
         <Forecast city={city} forecastResponse={forecastResponse} />
         <Units handleClick={this.toggleUnits} units={units} />
         <Footer />
-      </div>
+      </Fragment>
     );
   }
 }
