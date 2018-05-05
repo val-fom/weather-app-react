@@ -5,8 +5,8 @@ const Favourites = ({ list, handleClick, add, clear }) => (
   <div className="favourites__container">
     <ul className="favourites">
       {list
-        .map(city => (
-          <li className="favourites__city">
+        .map(({ city, id }) => (
+          <li className="favourites__city" key={id}>
             <a onClick={handleClick} href="#">
               {city}
             </a>

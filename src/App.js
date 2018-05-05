@@ -23,6 +23,7 @@ export default class App extends Component {
       weatherResponse: null,
       forecastResponse: null,
       city: getCityFromUrl() || 'Kyiv,UA',
+      id: null,
       units: localStorage.getItem('units') || 'metric',
       isFound: true,
     };
@@ -73,32 +74,30 @@ export default class App extends Component {
 
   computeNextState = ({ weatherResponse, forecastResponse, units }) => {
     const city = `${weatherResponse.name},${weatherResponse.sys.country}`;
+    const { id } = weatherResponse;
     return {
       weatherResponse,
       forecastResponse,
       units,
       city,
+      id,
       isFound: true,
     };
   };
 
   computeNotFoundState = () => ({ isFound: false });
 
-  componentsStateWillUpdate(nextState) {
-    if (nextState.city !== this.state.city) setCityTitle(nextState.city);
-  }
-
   render() {
-    const { city, weatherResponse, forecastResponse, isFound, units } = this.state;
+    const { city, id, weatherResponse, forecastResponse, isFound, units } = this.state;
 
     return (
       <Fragment>
         <Header />
         <SearchForm city={city} isFound={isFound} onSubmit={this.search} />
-        <ListContainer listName="history" inner={History} city={city} handleClick={this.search} />
-        <ListContainer listName="favourites" inner={Favourites} city={city} handleClick={this.search} />
+        <ListContainer listName="history" inner={History} city={city} id={id} handleClick={this.search} />
+        <ListContainer listName="favourites" inner={Favourites} city={city} id={id} handleClick={this.search} />
         <Weather city={city} weatherResponse={weatherResponse} />
-        <Forecast city={city} forecastResponse={forecastResponse} />
+        <Forecast forecastResponse={forecastResponse} />
         <Units handleClick={this.toggleUnits} units={units} />
         <Footer />
       </Fragment>

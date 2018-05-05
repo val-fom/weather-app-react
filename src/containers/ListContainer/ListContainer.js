@@ -17,13 +17,10 @@ export default class ListContainer extends Component {
 
   add = () => {
     const { listName } = this.state;
-    const { city } = this.props;
-    const list = this.state.list.slice();
-    const index = list.indexOf(city);
-    if (city === list[list.length - 1]) return;
-    if (~index) list.splice(index, 1);
-    // ^ to move existing city to the end of the list
-    list.push(city);
+    const { city, id } = this.props;
+    const list = this.state.list.slice().filter(item => item.city !== city);
+    // to move existing city to the end of ^ the list
+    list.push({ city, id });
     localStorage.setItem(listName, JSON.stringify(list));
     this.setState({ list });
   };

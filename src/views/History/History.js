@@ -5,8 +5,8 @@ const History = ({ list, handleClick, clear }) => (
   <div className="history__container">
     <ul className="history">
       {list
-        .map(city => (
-          <li className="history__city">
+        .map(({ city, id }) => (
+          <li className="history__city" key={id}>
             <a onClick={handleClick} href="#">
               {city}
             </a>
