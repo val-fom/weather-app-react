@@ -10,7 +10,7 @@ const WeatherIcons = ({ id, icon, main, description }) => {
   const className = `wi wi-owm${timeOfDay}-${id}`;
   const title = `${main}: ${description}`;
 
-  return <i className={className} title={title} />;
+  return <i className={className} title={title} key={id} />;
 };
 
 export default WeatherIcons;

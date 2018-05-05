@@ -7,7 +7,7 @@ const ThreeHourForecast = ({ dt, main, weather }) => {
   const temp = `${main.temp.toFixed(0)}\xB0`;
 
   return (
-    <article className="forecast__three-hour">
+    <article className="forecast__three-hour" key={dt}>
       <h4 className="forecast__time" data-time>
         {hours}
       </h4>
