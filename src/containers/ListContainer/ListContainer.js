@@ -11,7 +11,7 @@ export default class ListContainer extends Component {
     };
   }
 
-  getSnapshotBeforeUpdate() {
+  componentDidUpdate() {
     if (this.state.listName === 'history') this.add();
   }
 
