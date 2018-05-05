@@ -7,7 +7,7 @@ const Favourites = ({ list, handleClick, add, clear }) => (
       {list
         .map(({ city, id }) => (
           <li className="favourites__city" key={id}>
-            <a onClick={handleClick} href="#">
+            <a onClick={handleClick} href={`#/${city}`}>
               {city}
             </a>
           </li>

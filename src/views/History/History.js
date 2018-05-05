@@ -7,7 +7,7 @@ const History = ({ list, handleClick, clear }) => (
       {list
         .map(({ city, id }) => (
           <li className="history__city" key={id}>
-            <a onClick={handleClick} href="#">
+            <a onClick={handleClick} href={`#/${city}`}>
               {city}
             </a>
           </li>
