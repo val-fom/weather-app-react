@@ -14,7 +14,7 @@ export default class ListContainer extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     const lastCity = this.state.list.slice(-1)[0];
     if (!lastCity) return true; // list is empty => should update (SU)
-    return nextProps.city in lastCity; // `new` city !== `last` city => SU
+    return nextProps.city !== lastCity.city; // `new` city !== `last` city => SU
   }
 
   componentDidUpdate() {
@@ -35,6 +35,7 @@ export default class ListContainer extends Component {
     const { listName } = this.state;
     localStorage.removeItem(listName);
     this.setState({ list: [] });
+    this.forceUpdate(); // to force update skipping SCU
   };
 
   handleClick = ev => {
