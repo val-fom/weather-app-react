@@ -6,7 +6,7 @@ import getAllForecast from './utils/api';
 import { getCityFromUrl, setCityTitle, pushHistoryState } from './utils';
 
 import Header from './views/Header';
-import Search from './containers/Search';
+import SearchForm from './containers/SearchForm';
 import ListContainer from './containers/ListContainer';
 /**/ import History from './views/History';
 /**/ import Favourites from './views/Favourites';
@@ -94,7 +94,7 @@ export default class App extends Component {
     return (
       <Fragment>
         <Header />
-        <Search city={city} isFound={isFound} onSubmit={this.search} />
+        <SearchForm city={city} isFound={isFound} onSubmit={this.search} />
         <ListContainer listName="history" inner={History} city={city} handleClick={this.search} />
         <ListContainer listName="favourites" inner={Favourites} city={city} handleClick={this.search} />
         <Weather city={city} weatherResponse={weatherResponse} />

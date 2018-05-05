@@ -1,12 +1,12 @@
 @import "../../scss/variables";
 
-.search {
+.search-form {
 	width: 100%;
 	margin: auto;
 	position: relative;
 }
 
-.search__input {
+.search-form__input {
 	z-index: 1;
 	width: 100%;
 	padding: 4px;
@@ -19,13 +19,13 @@
 	line-height: 1.4rem;
 }
 
-.search__input::-webkit-input-placeholder {
+.search-form__input::-webkit-input-placeholder {
 	color: #999;
 	font-size: 0.7rem;
 	text-align: center;
 }
 
-.search__input:focus {
+.search-form__input:focus {
 	outline: none;
 	box-shadow: 0px 0px 10px 0px #ccc;
 }
@@ -43,7 +43,7 @@
 	}
 }
 
-.search__button {
+.search-form__button {
 	position: absolute;
 	font-size: 0.8rem;
 	top: 0.15rem;

@@ -1,7 +1,7 @@
 import React from 'react';
 import './History.css';
 
-const HistoryList = ({ list, handleClick, clear }) => (
+const History = ({ list, handleClick, clear }) => (
   <div className="history__container">
     <ul className="history">
       {list
@@ -20,4 +20,4 @@ const HistoryList = ({ list, handleClick, clear }) => (
   </div>
 );
 
-export default HistoryList;
+export default History;

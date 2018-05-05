@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './Search.css';
+import './SearchForm.css';
 
 export default class Search extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -55,17 +55,17 @@ export default class Search extends Component {
     const { isValid, inputValue } = this.state;
 
     return (
-      <form onSubmit={this.handleSubmit} className="search">
+      <form onSubmit={this.handleSubmit} className="search-form">
         <input
           onMouseUp={e => e.target.setSelectionRange(0, 999)}
           onChange={this.handleChange}
-          className="search__input"
+          className="search-form__input"
           name="search"
           placeholder="type city name and press enter"
           data-is-valid={isValid}
           value={inputValue}
         />
-        <button className="button search__button" title="search">
+        <button className="button search-form__button" title="search">
           <i className="fa fa-search" aria-hidden="true" />
         </button>
       </form>
