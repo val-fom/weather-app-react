@@ -88,14 +88,33 @@ export default class App extends Component {
   computeNotFoundState = () => ({ isFound: false });
 
   render() {
-    const { city, id, weatherResponse, forecastResponse, isFound, units } = this.state;
+    const {
+      city,
+      id,
+      weatherResponse,
+      forecastResponse,
+      isFound,
+      units,
+    } = this.state;
 
     return (
       <Fragment>
         <Header />
         <SearchForm city={city} isFound={isFound} onSubmit={this.search} />
-        <ListContainer listName="history" inner={History} city={city} id={id} handleClick={this.search} />
-        <ListContainer listName="favourites" inner={Favourites} city={city} id={id} handleClick={this.search} />
+        <ListContainer
+          listName="history"
+          inner={History}
+          city={city}
+          id={id}
+          handleClick={this.search}
+        />
+        <ListContainer
+          listName="favourites"
+          inner={Favourites}
+          city={city}
+          id={id}
+          handleClick={this.search}
+        />
         <Weather city={city} weatherResponse={weatherResponse} />
         <Forecast forecastResponse={forecastResponse} />
         <Units handleClick={this.toggleUnits} units={units} />

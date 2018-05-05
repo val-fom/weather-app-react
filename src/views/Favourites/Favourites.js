@@ -14,10 +14,18 @@ const Favourites = ({ list, handleClick, add, clear }) => (
         ))
         .reverse()}
     </ul>
-    <button onClick={add} className="favourites__add-button button" title="add to favourites">
+    <button
+      onClick={add}
+      className="favourites__add-button button"
+      title="add to favourites"
+    >
       <i>+</i>
     </button>
-    <button onClick={clear} className="favourites__clear-button button" title="clear favourites">
+    <button
+      onClick={clear}
+      className="favourites__clear-button button"
+      title="clear favourites"
+    >
       <i>+</i>
     </button>
   </div>

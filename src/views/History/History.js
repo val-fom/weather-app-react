@@ -14,7 +14,11 @@ const History = ({ list, handleClick, clear }) => (
         ))
         .reverse()}
     </ul>
-    <button onClick={clear} className="history__clear-button button" title="clear history">
+    <button
+      onClick={clear}
+      className="history__clear-button button"
+      title="clear history"
+    >
       <i>+</i>
     </button>
   </div>

@@ -49,6 +49,13 @@ export default class ListContainer extends Component {
 
     if (!Inner) return null;
 
-    return <Inner list={list} handleClick={this.handleClick} add={this.add} clear={this.clear} />;
+    return (
+      <Inner
+        list={list}
+        handleClick={this.handleClick}
+        add={this.add}
+        clear={this.clear}
+      />
+    );
   }
 }
