@@ -5,8 +5,6 @@ export default class ListContainer extends Component {
     super(props);
 
     this.state = {
-      Inner: this.props.inner,
-      listName: this.props.listName,
       list: JSON.parse(localStorage.getItem('favourites')) || [],
     };
   }
@@ -18,12 +16,12 @@ export default class ListContainer extends Component {
   }
 
   componentDidUpdate() {
-    if (this.state.listName === 'history') this.add();
+    if (this.props.listName === 'history') this.add();
   }
 
   add = () => {
-    const { listName } = this.state;
-    const { city, id } = this.props;
+    // const { listName } = this.state;
+    const { city, id, listName } = this.props;
     const list = this.state.list.slice().filter(item => item.city !== city);
     // to move existing city to the end of ^ the list
     list.push({ city, id });
@@ -32,7 +30,7 @@ export default class ListContainer extends Component {
   };
 
   clear = () => {
-    const { listName } = this.state;
+    const { listName } = this.props;
     localStorage.removeItem(listName);
     this.setState({ list: [] });
     this.forceUpdate(); // to force update skipping SCU
@@ -45,12 +43,11 @@ export default class ListContainer extends Component {
   };
 
   render() {
-    const { Inner, list } = this.state;
-
-    if (!Inner) return null;
+    const { list } = this.state;
+    const { ListView } = this.props;
 
     return (
-      <Inner
+      <ListView
         list={list}
         handleClick={this.handleClick}
         add={this.add}

@@ -103,14 +103,14 @@ export default class App extends Component {
         <SearchForm city={city} isFound={isFound} onSubmit={this.search} />
         <ListContainer
           listName="history"
-          inner={History}
+          ListView={History}
           city={city}
           id={id}
           handleClick={this.search}
         />
         <ListContainer
           listName="favourites"
-          inner={Favourites}
+          ListView={Favourites}
           city={city}
           id={id}
           handleClick={this.search}
