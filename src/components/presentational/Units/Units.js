@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './Units.css';
 
 const Units = ({ units, handleClick }) => (
@@ -14,3 +15,8 @@ const Units = ({ units, handleClick }) => (
 );
 
 export default Units;
+
+Units.propTypes = {
+  units: PropTypes.string.isRequired,
+  handleClick: PropTypes.func.isRequired,
+};

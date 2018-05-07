@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './SearchForm.css';
 
 export default class SearchForm extends Component {
@@ -72,3 +73,7 @@ export default class SearchForm extends Component {
     );
   }
 }
+
+SearchForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};

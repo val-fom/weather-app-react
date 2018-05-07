@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './Favourites.css';
 
 const Favourites = ({ list, handleClick, add, clear }) => (
@@ -32,3 +33,17 @@ const Favourites = ({ list, handleClick, add, clear }) => (
 );
 
 export default Favourites;
+
+Favourites.propTypes = {
+  city: PropTypes.string,
+  id: PropTypes.number,
+  list: PropTypes.array.isRequired,
+  add: PropTypes.func.isRequired,
+  clear: PropTypes.func.isRequired,
+  handleClick: PropTypes.func.isRequired,
+};
+
+Favourites.defaultProps = {
+  city: undefined,
+  id: undefined,
+};

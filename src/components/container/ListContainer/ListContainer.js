@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export default class ListContainer extends Component {
   state = {
@@ -16,7 +17,6 @@ export default class ListContainer extends Component {
   }
 
   add = () => {
-    // const { listName } = this.state;
     const { city, id, listName } = this.props;
     const list = this.state.list.slice().filter(item => item.city !== city);
     // to move existing city to the end of ^ the list
@@ -52,3 +52,11 @@ export default class ListContainer extends Component {
     );
   }
 }
+
+ListContainer.propTypes = {
+  city: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
+  listName: PropTypes.string.isRequired,
+  ListView: PropTypes.func.isRequired,
+  handleClick: PropTypes.func.isRequired,
+};

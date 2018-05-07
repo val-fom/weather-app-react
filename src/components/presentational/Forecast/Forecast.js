@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './Forecast.css';
 import ThreeHourForecast from './ThreeHourForecast';
 
@@ -22,3 +23,11 @@ const Forecast = ({ forecastResponse }) => {
 };
 
 export default Forecast;
+
+Forecast.propTypes = {
+  forecastResponse: PropTypes.object,
+};
+
+Forecast.defaultProps = {
+  forecastResponse: null,
+};

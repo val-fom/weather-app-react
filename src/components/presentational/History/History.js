@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './History.css';
 
 const History = ({ list, handleClick, clear }) => (
@@ -25,3 +26,16 @@ const History = ({ list, handleClick, clear }) => (
 );
 
 export default History;
+
+History.propTypes = {
+  city: PropTypes.string,
+  id: PropTypes.number,
+  list: PropTypes.array.isRequired,
+  clear: PropTypes.func.isRequired,
+  handleClick: PropTypes.func.isRequired,
+};
+
+History.defaultProps = {
+  city: undefined,
+  id: undefined,
+};

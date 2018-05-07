@@ -20,7 +20,7 @@ export default class App extends Component {
     weatherResponse: null,
     forecastResponse: null,
     city: getCityFromUrl() || 'Kyiv,UA',
-    id: null,
+    id: 703448,
     units: localStorage.getItem('units') || 'metric',
     isFound: true,
   };
