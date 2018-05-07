@@ -56,9 +56,7 @@ export default class App extends Component {
     this.updateCityResponse({ units }).then(pushHistoryState);
   };
 
-  updateCityResponse({ city, units }) {
-    city = city || this.state.city;
-    units = units || this.state.units;
+  updateCityResponse({ city = this.state.city, units = this.state.units }) {
     return getAllForecast(city, units)
       .then(this.computeNextState, this.computeNotFoundState)
       .then(nextState => {
