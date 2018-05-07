@@ -6,7 +6,7 @@ import getAllForecast from './utils/api';
 import { getCityFromUrl, setCityTitle, pushHistoryState } from './utils';
 
 import Header from './components/presentational/Header';
-import SearchForm from './components/container/SearchForm';
+import SearchForm from './components/presentational/SearchForm';
 import ListContainer from './components/container/ListContainer';
 /**/ import History from './components/presentational/History';
 /**/ import Favourites from './components/presentational/Favourites';
