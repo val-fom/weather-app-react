@@ -16,18 +16,14 @@ import Units from './components/presentational/Units';
 import Footer from './components/presentational/Footer';
 
 export default class App extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      weatherResponse: null,
-      forecastResponse: null,
-      city: getCityFromUrl() || 'Kyiv,UA',
-      id: null,
-      units: localStorage.getItem('units') || 'metric',
-      isFound: true,
-    };
-  }
+  state = {
+    weatherResponse: null,
+    forecastResponse: null,
+    city: getCityFromUrl() || 'Kyiv,UA',
+    id: null,
+    units: localStorage.getItem('units') || 'metric',
+    isFound: true,
+  };
 
   componentDidMount() {
     window.onpopstate = ev => {

@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 
 export default class ListContainer extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      list: JSON.parse(localStorage.getItem('favourites')) || [],
-    };
-  }
+  state = {
+    list: JSON.parse(localStorage.getItem('favourites')) || [],
+  };
 
   shouldComponentUpdate(nextProps, nextState) {
     const lastCity = this.state.list.slice(-1)[0];

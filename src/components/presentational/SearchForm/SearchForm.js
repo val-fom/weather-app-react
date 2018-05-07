@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './SearchForm.css';
 
-export default class Search extends Component {
+export default class SearchForm extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     return nextProps.isFound
       ? {
