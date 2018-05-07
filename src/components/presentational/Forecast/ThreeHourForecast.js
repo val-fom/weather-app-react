@@ -1,6 +1,6 @@
 import React from 'react';
 import WeatherIcons from '../WeatherIcons';
-import { getHours } from '../../utils';
+import { getHours } from '../../../utils';
 
 const ThreeHourForecast = ({ dt, main, weather }) => {
   const hours = getHours(dt);

@@ -5,15 +5,15 @@ import './scss/app.css';
 import getAllForecast from './utils/api';
 import { getCityFromUrl, setCityTitle, pushHistoryState } from './utils';
 
-import Header from './views/Header';
-import SearchForm from './containers/SearchForm';
-import ListContainer from './containers/ListContainer';
-/**/ import History from './views/History';
-/**/ import Favourites from './views/Favourites';
-import Weather from './views/Weather';
-import Forecast from './views/Forecast';
-import Units from './views/Units';
-import Footer from './views/Footer';
+import Header from './components/presentational/Header';
+import SearchForm from './components/container/SearchForm';
+import ListContainer from './components/container/ListContainer';
+/**/ import History from './components/presentational/History';
+/**/ import Favourites from './components/presentational/Favourites';
+import Weather from './components/presentational/Weather';
+import Forecast from './components/presentational/Forecast';
+import Units from './components/presentational/Units';
+import Footer from './components/presentational/Footer';
 
 export default class App extends Component {
   constructor(props) {
