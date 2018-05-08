@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './Forecast.css';
-import ThreeHourForecast from './ThreeHourForecast';
+import ThreeHourForecast from '../ThreeHourForecast';
 
 const Forecast = ({ forecastResponse }) => {
   if (!forecastResponse) return <div className="forecast__container" />;

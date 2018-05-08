@@ -1,0 +1,10 @@
+.threeHourForecast {
+	text-align: center;
+	flex-grow: 1;
+}
+
+.threeHourForecast__time,
+.threeHourForecast__icon,
+.threeHourForecast__temp {
+	height: 1.5rem;
+}

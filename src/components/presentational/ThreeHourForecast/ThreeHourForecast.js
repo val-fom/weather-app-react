@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './ThreeHourForecast.css';
 import WeatherIcons from '../WeatherIcons';
 import { getHours } from '../../../utils';
 
@@ -8,14 +9,14 @@ const ThreeHourForecast = ({ dt, main, weather }) => {
   const temp = `${main.temp.toFixed(0)}\xB0`;
 
   return (
-    <article className="forecast__three-hour" key={dt}>
-      <h4 className="forecast__time" data-time>
+    <article className="threeHourForecast" key={dt}>
+      <h4 className="threeHourForecast__time" data-time>
         {hours}
       </h4>
-      <div className="forecast__icon" data-icon>
+      <div className="threeHourForecast__icon" data-icon>
         {weather.map(WeatherIcons)}
       </div>
-      <div className="forecast__temp" data-temp>
+      <div className="threeHourForecast__temp" data-temp>
         {temp}
       </div>
     </article>
