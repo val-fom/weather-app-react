@@ -2,6 +2,7 @@
   "name": "weather-app-react",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://val-fom.github.io/weather-app-react",
   "dependencies": {
     "prop-types": "^15.6.1",
     "react": "^16.3.2",
@@ -17,6 +18,8 @@
     "start": "npm-run-all -p watch-css start-js",
     "build-js": "react-scripts build",
     "build": "npm-run-all build-css build-js",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
@@ -29,6 +32,7 @@
     "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-react": "^7.7.0",
     "font-awesome": "^4.7.0",
+    "gh-pages": "^1.1.0",
     "node-sass-chokidar": "^1.2.2",
     "npm-run-all": "^4.1.2",
     "prettier": "^1.12.1",
