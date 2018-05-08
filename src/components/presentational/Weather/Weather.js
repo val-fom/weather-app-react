@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import WeatherIcons from '../WeatherIcons';
 
 import './Weather.css';
@@ -19,3 +20,12 @@ const Weather = ({ weatherResponse, city }) => {
 };
 
 export default Weather;
+
+Weather.propTypes = {
+  weatherResponse: PropTypes.object,
+  city: PropTypes.string.isRequired,
+};
+
+Weather.defaultProps = {
+  weatherResponse: null,
+};
