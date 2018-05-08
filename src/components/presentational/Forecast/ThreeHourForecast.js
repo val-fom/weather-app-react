@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import WeatherIcons from '../WeatherIcons';
 import { getHours } from '../../../utils';
 
@@ -22,3 +23,9 @@ const ThreeHourForecast = ({ dt, main, weather }) => {
 };
 
 export default ThreeHourForecast;
+
+ThreeHourForecast.propTypes = {
+  dt: PropTypes.number.isRequired,
+  main: PropTypes.object.isRequired,
+  weather: PropTypes.array.isRequired,
+};
