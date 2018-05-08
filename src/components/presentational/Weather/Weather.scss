@@ -1,14 +1,9 @@
 @import "../../../scss/variables";
 
-.weather__container {
-	width: 100%;
-	margin: auto;
-	position: relative;
-}
-
 .weather {
 	width: 100%;
 	display: flex;
+	flex: none;
 	border-left: $border;
 	border-right: $border;
 	overflow: hidden;
