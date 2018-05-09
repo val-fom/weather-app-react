@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import PlacesAutocomplete from '../PlacesAutocomplete';
 import './SearchForm.css';
 
 export default class SearchForm extends Component {
@@ -52,10 +53,17 @@ export default class SearchForm extends Component {
     }
   };
 
+  handleSuggestionClick = (description, latLng) => {
+    console.log('description, latLng: ', description, latLng);
+    this.setState({ inputValue: description });
+    this.props.searchByLatLng(latLng);
+  };
+
   render() {
     const { isValid, inputValue } = this.state;
 
     return (
+      <Fragment>
       <form onSubmit={this.handleSubmit} className="search-form">
         <input
           onMouseUp={e => e.target.setSelectionRange(0, 999)}
@@ -65,11 +73,17 @@ export default class SearchForm extends Component {
           placeholder="type city name and press enter"
           data-is-valid={isValid}
           value={inputValue}
+            autoComplete="off"
         />
         <button className="button search-form__button" title="search">
           <i className="fa fa-search" aria-hidden="true" />
         </button>
       </form>
+        <PlacesAutocomplete
+          value={isValid ? inputValue : ''}
+          handleSuggestionClick={this.handleSuggestionClick}
+        />
+      </Fragment>
     );
   }
 }
