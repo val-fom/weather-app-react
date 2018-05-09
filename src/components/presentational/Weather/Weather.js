@@ -4,7 +4,7 @@ import WeatherIcons from '../WeatherIcons';
 
 import './Weather.css';
 
-const Weather = ({ weatherResponse, city }) => {
+const Weather = ({ weatherResponse, cityName }) => {
   if (!weatherResponse) return '';
 
   const temp = `${weatherResponse.main.temp.toFixed(0)}\xB0`;
@@ -12,7 +12,7 @@ const Weather = ({ weatherResponse, city }) => {
 
   return (
     <div className="weather">
-      <h2 className="weather__city">{city}</h2>
+      <h2 className="weather__city">{cityName}</h2>
       <div className="weather__icon">{weather.map(WeatherIcons)}</div>
       <div className="weather__temp">{temp}</div>
     </div>
@@ -23,7 +23,7 @@ export default Weather;
 
 Weather.propTypes = {
   weatherResponse: PropTypes.object,
-  city: PropTypes.string.isRequired,
+  cityName: PropTypes.string.isRequired,
 };
 
 Weather.defaultProps = {

@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './Favourites.css';
 
-const Favourites = ({ list, handleClick, add, clear }) => (
+const Favourites = ({ list, search, add, clear }) => (
   <div className="favourites__container">
     <ul className="favourites">
       {list
-        .map(({ city, id }) => (
-          <li className="favourites__city" key={id}>
-            <a onClick={handleClick} href={`#/${city}`}>
-              {city}
+        .map(({ cityName, cityId }) => (
+          <li className="favourites__city" key={cityId}>
+            <a onClick={() => search({ cityId })} href={`#/${cityName}`}>
+              {cityName}
             </a>
           </li>
         ))
@@ -34,16 +34,16 @@ const Favourites = ({ list, handleClick, add, clear }) => (
 
 export default Favourites;
 
-Favourites.propTypes = {
-  city: PropTypes.string,
-  id: PropTypes.number,
-  list: PropTypes.array.isRequired,
-  add: PropTypes.func.isRequired,
-  clear: PropTypes.func.isRequired,
-  handleClick: PropTypes.func.isRequired,
-};
+// Favourites.propTypes = {
+//   cityName: PropTypes.string,
+//   cityId: PropTypes.number,
+//   list: PropTypes.array.isRequired,
+//   add: PropTypes.func.isRequired,
+//   clear: PropTypes.func.isRequired,
+//   search: PropTypes.func.isRequired,
+// };
 
-Favourites.defaultProps = {
-  city: undefined,
-  id: undefined,
-};
+// Favourites.defaultProps = {
+//   cityName: undefined,
+//   cityId: undefined,
+// };

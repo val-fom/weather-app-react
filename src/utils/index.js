@@ -1,13 +1,13 @@
-export const getCityFromUrl = () => {
+export const getCityIdFromUrl = () => {
   const { hash } = window.location;
   if (hash.startsWith('#/')) {
-    const city = hash.slice(2);
-    return decodeURI(city);
+    const cityId = hash.slice(2);
+    return decodeURI(cityId);
   }
 };
 
-export const pushHistoryState = ({ city, units }) => {
-  if (city) window.history.pushState({ city, units }, null, `#/${city}`);
+export const pushHistoryState = ({ cityId, units }) => {
+  if (cityId) window.history.pushState({ cityId, units }, null, `#/${cityId}`);
 };
 
 export const setCityTitle = city => {

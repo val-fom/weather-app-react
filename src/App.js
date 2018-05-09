@@ -3,7 +3,7 @@ import React, { Component, Fragment } from 'react';
 import './scss/app.css';
 
 import getAllForecast from './utils/api';
-import { getCityFromUrl, setCityTitle, pushHistoryState } from './utils';
+import { getCityIdFromUrl, setCityTitle, pushHistoryState } from './utils';
 
 import Header from './components/presentational/Header';
 import SearchForm from './components/presentational/SearchForm';
@@ -19,32 +19,32 @@ export default class App extends Component {
   state = {
     weatherResponse: null,
     forecastResponse: null,
-    city: getCityFromUrl() || 'Kyiv,UA',
-    id: 703448,
+    // cityName: null,
+    // cityId: null,
     units: localStorage.getItem('units') || 'metric',
     isFound: true,
   };
 
   componentDidMount() {
-    window.onpopstate = ev => {
-      if (ev.state) {
-        const { city, units } = ev.state;
-        this.updateCityResponse({ city, units });
-      } else {
-        const city = getCityFromUrl();
-        if (city) this.updateCityResponse({ city });
-      }
-    };
+    // window.onpopstate = ev => {
+    //   if (ev.state) {
+    //     const { city, units } = ev.state;
+    //     this.updateCityResponse({ city, units });
+    //   } else {
+    //     const city = getCityIdFromUrl();
+    //     if (city) this.updateCityResponse({ city });
+    //   }
+    // };
 
-    this.search();
+    this.search({ cityId: 703448 }); // get data for default city (Kyiv)
   }
 
   componentDidUpdate() {
-    setCityTitle(this.state.city);
+    // setCityTitle(this.state.city);
   }
 
-  search = city => {
-    this.updateCityResponse({ city })
+  search = ({ cityId, latLng }) => {
+    this.updateCityResponse({ cityId, latLng })
       .then(pushHistoryState)
       .catch(console.error);
   };
@@ -56,8 +56,8 @@ export default class App extends Component {
     this.updateCityResponse({ units }).then(pushHistoryState);
   };
 
-  updateCityResponse({ city = this.state.city, units = this.state.units }) {
-    return getAllForecast(city, units)
+  updateCityResponse({ cityId, latLng, units = this.state.units }) {
+    return getAllForecast({ cityId, latLng, units })
       .then(this.computeNextState, this.computeNotFoundState)
       .then(nextState => {
         this.setState(nextState);
@@ -66,52 +66,48 @@ export default class App extends Component {
       .catch(console.error);
   }
 
-  computeNextState = ({ weatherResponse, forecastResponse, units }) => {
-    const city = `${weatherResponse.name},${weatherResponse.sys.country}`;
-    const { id } = weatherResponse;
-    return {
-      weatherResponse,
-      forecastResponse,
-      units,
-      city,
-      id,
-      isFound: true,
-    };
-  };
+  computeNextState = ({ weatherResponse, forecastResponse, units }) => ({
+    weatherResponse,
+    forecastResponse,
+    units,
+    isFound: true,
+  });
 
   computeNotFoundState = () => ({ isFound: false });
 
   render() {
-    const {
-      city,
-      id,
-      weatherResponse,
-      forecastResponse,
-      isFound,
-      units,
-    } = this.state;
+    const { weatherResponse, forecastResponse, isFound, units } = this.state;
+
+    if (!weatherResponse) return null;
+
+    const cityName = `${weatherResponse.name},${weatherResponse.sys.country}`;
+    const { cityId } = weatherResponse.id;
 
     return (
       <Fragment>
         <Header />
-        <SearchForm city={city} isFound={isFound} onSubmit={this.search} />
+        <SearchForm
+          cityName={cityName}
+          isFound={isFound}
+          search={this.search}
+        />
         <ListContainer
           listName="history"
           ListView={History}
-          city={city}
-          id={id}
-          handleClick={this.search}
+          cityName={cityName}
+          cityId={cityId}
+          search={this.search}
         />
         <ListContainer
           listName="favourites"
           ListView={Favourites}
-          city={city}
-          id={id}
-          handleClick={this.search}
+          cityName={cityName}
+          cityId={cityId}
+          search={this.search}
         />
-        <Weather city={city} weatherResponse={weatherResponse} />
+        <Weather cityName={cityName} weatherResponse={weatherResponse} />
         <Forecast forecastResponse={forecastResponse} />
-        <Units handleClick={this.toggleUnits} units={units} />
+        <Units toggleUnits={this.toggleUnits} units={units} />
         <Footer />
       </Fragment>
     );

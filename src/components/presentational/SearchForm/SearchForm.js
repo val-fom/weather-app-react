@@ -7,7 +7,7 @@ export default class SearchForm extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     return nextProps.isFound
       ? {
-          inputValue: nextProps.city,
+          inputValue: nextProps.cityName,
           badInputValue: null,
           isValid: true,
         }
@@ -45,11 +45,13 @@ export default class SearchForm extends Component {
 
     if (badInputValue) return;
 
-    if (!inputValue.trim()) {
+    const input = inputValue.trim();
+
+    if (!input) {
       this.setState({ isValid: false });
     } else {
       this.setState({ isValid: true });
-      this.props.onSubmit(inputValue.trim());
+      this.props.search(input);
     }
   };
 
@@ -64,21 +66,21 @@ export default class SearchForm extends Component {
 
     return (
       <Fragment>
-      <form onSubmit={this.handleSubmit} className="search-form">
-        <input
-          onMouseUp={e => e.target.setSelectionRange(0, 999)}
-          onChange={this.handleChange}
-          className="search-form__input"
-          name="search"
-          placeholder="type city name and press enter"
-          data-is-valid={isValid}
-          value={inputValue}
+        <form onSubmit={this.handleSubmit} className="search-form">
+          <input
+            onMouseUp={e => e.target.setSelectionRange(0, 999)}
+            onChange={this.handleChange}
+            className="search-form__input"
+            name="search"
+            placeholder="type city name and press enter"
+            data-is-valid={isValid}
+            value={inputValue}
             autoComplete="off"
-        />
-        <button className="button search-form__button" title="search">
-          <i className="fa fa-search" aria-hidden="true" />
-        </button>
-      </form>
+          />
+          <button className="button search-form__button" title="search">
+            <i className="fa fa-search" aria-hidden="true" />
+          </button>
+        </form>
         <PlacesAutocomplete
           value={isValid ? inputValue : ''}
           handleSuggestionClick={this.handleSuggestionClick}
@@ -89,5 +91,5 @@ export default class SearchForm extends Component {
 }
 
 SearchForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
+  search: PropTypes.func.isRequired,
 };
