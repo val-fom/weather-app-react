@@ -7,7 +7,6 @@ import './SearchForm.css';
 export default class SearchForm extends Component {
   state = {
     isActive: false,
-    isValid: true,
     inputValue: null,
     predictions: null,
   };
@@ -79,7 +78,7 @@ export default class SearchForm extends Component {
   };
 
   render() {
-    const { isActive, isValid, inputValue, predictions } = this.state;
+    const { isActive, inputValue, predictions } = this.state;
 
     return (
       <Fragment>
@@ -91,7 +90,6 @@ export default class SearchForm extends Component {
             className="search-form__input"
             name="search"
             placeholder="type city name and select location"
-            data-is-valid={isValid}
             value={inputValue}
             autoComplete="off"
           />
