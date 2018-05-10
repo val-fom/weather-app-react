@@ -1,7 +1,7 @@
 import React from 'react';
-import './PlacesAutocomplete.css';
+import './Autocomplete.css';
 
-const PlacesAutocomplete = ({ predictions, isActive, handleClick }) => {
+const Autocomplete = ({ predictions, isActive, handleClick }) => {
   if (!predictions) return null;
 
   return (
@@ -26,4 +26,4 @@ const PlacesAutocomplete = ({ predictions, isActive, handleClick }) => {
   );
 };
 
-export default PlacesAutocomplete;
+export default Autocomplete;
