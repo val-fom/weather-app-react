@@ -20,7 +20,6 @@ export default class App extends Component {
     weatherResponse: null,
     forecastResponse: null,
     units: localStorage.getItem('units') || 'metric',
-    isFound: true,
   };
 
   componentDidMount() {
@@ -38,18 +37,14 @@ export default class App extends Component {
   }
 
   componentDidUpdate() {
-    const { weatherResponse /* , units */ } = this.state;
+    const { weatherResponse } = this.state;
     const cityName = `${weatherResponse.name},${weatherResponse.sys.country}`;
-    // const cityId = weatherResponse.id;
 
     setCityTitle(cityName);
-    // pushHistoryState({ cityId, units });
   }
 
   search = ({ cityId, latLng }) => {
-    this.updateCityResponse({ cityId, latLng })
-      // .then(pushHistoryState)
-      .catch(console.error);
+    this.updateCityResponse({ cityId, latLng }).catch(console.error);
   };
 
   toggleUnits = () => {
@@ -58,12 +53,11 @@ export default class App extends Component {
     const cityId = weatherResponse.id;
     localStorage.setItem('units', units);
     this.setState({ units });
-    this.updateCityResponse({ cityId, units }); /* .then(pushHistoryState); */
+    this.updateCityResponse({ cityId, units });
   };
 
   updateCityResponse({ cityId, latLng, units = this.state.units }) {
     return getAllForecast({ cityId, latLng, units })
-      .then(this.computeNextState, this.computeNotFoundState)
       .then(nextState => {
         pushHistoryState({ cityId, units });
         this.setState(nextState);
@@ -72,17 +66,8 @@ export default class App extends Component {
       .catch(console.error);
   }
 
-  computeNextState = ({ weatherResponse, forecastResponse, units }) => ({
-    weatherResponse,
-    forecastResponse,
-    units,
-    isFound: true, // TODO: cut out this flag
-  });
-
-  computeNotFoundState = () => ({ isFound: false }); // TODO: cut out this flag
-
   render() {
-    const { weatherResponse, forecastResponse, units, isFound } = this.state;
+    const { weatherResponse, forecastResponse, units } = this.state;
 
     if (!weatherResponse) return null;
 
@@ -92,11 +77,7 @@ export default class App extends Component {
     return (
       <Fragment>
         <Header />
-        <SearchForm
-          cityName={cityName}
-          isFound={isFound}
-          search={this.search}
-        />
+        <SearchForm cityName={cityName} search={this.search} />
         <ListContainer
           listName="history"
           ListView={History}

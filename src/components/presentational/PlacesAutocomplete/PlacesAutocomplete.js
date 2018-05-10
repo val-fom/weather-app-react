@@ -1,27 +1,41 @@
 import React, { Component } from 'react';
 import { geocodeByPlaceId, getCoordinates } from '../../../utils/google';
+import './PlacesAutocomplete.css';
 
 export default class PlacesAutocomplete extends Component {
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.inputValue !== prevState.prevInputValue) {
+      return {
+        predictions: null,
+        prevInputValue: nextProps.inputValue,
+      };
+    }
+    return null;
+  }
+
   state = {
-    predictions: [],
+    predictions: null,
   };
 
   componentDidMount() {
     this.autocomplete = new window.google.maps.places.AutocompleteService();
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return (
-      nextProps.value !== this.props.value ||
-      nextProps.isActive !== this.props.isActive
-    );
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  // return (
+  //   nextProps.value !== this.props.value ||
+  //   nextProps.isActive !== this.props.isActive
+  // );
+  // }
 
   componentDidUpdate(prevProps, prevState) {
-    const { value } = this.props;
+    if (this.state.predictions === null) {
+      this._getPredictions(this.props.inputValue);
+    }
+  }
 
+  _getPredictions(value) {
     if (!value) return;
-
     this.autocomplete.getPlacePredictions(
       {
         input: value,
@@ -29,7 +43,7 @@ export default class PlacesAutocomplete extends Component {
       },
       (predictions, status) => {
         console.log('status: ', status);
-        console.log('predictions1: ', predictions);
+        console.log('source_predictions: ', predictions);
         if (status === 'OK')
           this.setState({
             predictions: predictions.map(prediction => ({
@@ -54,6 +68,8 @@ export default class PlacesAutocomplete extends Component {
   render() {
     const { predictions } = this.state;
     const { isActive } = this.props;
+
+    if (!predictions) return null;
 
     return (
       <ul className={isActive ? '' : 'hidden'}>

@@ -4,61 +4,37 @@ import PlacesAutocomplete from '../PlacesAutocomplete';
 import './SearchForm.css';
 
 export default class SearchForm extends Component {
-  static getDerivedStateFromProps(nextProps, prevState) {
-    return nextProps.isFound
-      ? {
-          inputValue: nextProps.cityName,
-          badInputValue: null,
-          isValid: true,
-        }
-      : {
-          badInputValue: prevState.inputValue,
-          inputValue: `city '${prevState.inputValue}' not found`,
-          isValid: false,
-        };
-  }
-
   state = {
     isActive: false,
     isValid: true,
     inputValue: null,
-    badInputValue: null,
   };
 
-  handleChange = ev => {
-    const { badInputValue } = this.state;
-
-    const nextState = badInputValue
-      ? {
-          inputValue: badInputValue,
-          badInputValue: null,
-        }
-      : {
-          inputValue: ev.target.value,
-        };
-
-    this.setState(nextState);
-  };
+  handleChange = ev =>
+    this.setState({
+      inputValue: ev.target.value,
+    });
 
   handleSubmit = ev => {
     ev.preventDefault();
-    const { inputValue, badInputValue } = this.state;
+    // const { inputValue } = this.state;
 
-    if (badInputValue) return;
+    // const input = inputValue.trim();
 
-    const input = inputValue.trim();
-
-    if (!input) {
-      this.setState({ isValid: false });
-    } else {
-      this.setState({ isValid: true });
-      this.props.search(input);
-    }
+    // if (!input) {
+    //   this.setState({ isValid: false });
+    // } else {
+    //   this.setState({ isValid: true });
+    //   this.props.search(input);
+    // }
   };
 
   handleSuggestionClick = (description, latLng) => {
     console.log('description, latLng: ', description, latLng);
-    this.setState({ inputValue: description });
+    this.setState({
+      inputValue: description,
+      isActive: false,
+    });
     this.props.search({ latLng });
   };
 
@@ -70,12 +46,11 @@ export default class SearchForm extends Component {
         <form onSubmit={this.handleSubmit} className="search-form">
           <input
             onFocus={() => this.setState({ isActive: true })}
-            onBlur={() => this.setState({ isActive: false })}
             onMouseUp={e => e.target.setSelectionRange(0, 999)}
             onChange={this.handleChange}
             className="search-form__input"
             name="search"
-            placeholder="type city name and press enter"
+            placeholder="type city name and select location"
             data-is-valid={isValid}
             value={inputValue}
             autoComplete="off"
@@ -85,9 +60,10 @@ export default class SearchForm extends Component {
           </button>
         </form>
         <PlacesAutocomplete
-          value={isValid ? inputValue : ''}
+          inputValue={inputValue}
           isActive={isActive}
           handleSuggestionClick={this.handleSuggestionClick}
+          handleSubmit={this.handleSubmit}
         />
       </Fragment>
     );
