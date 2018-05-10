@@ -53,10 +53,12 @@ export default class App extends Component {
   };
 
   toggleUnits = () => {
+    const { weatherResponse } = this.state;
     const units = this.state.units === 'metric' ? 'imperial' : 'metric';
+    const cityId = weatherResponse.id;
     localStorage.setItem('units', units);
     this.setState({ units });
-    this.updateCityResponse({ units }); /* .then(pushHistoryState); */
+    this.updateCityResponse({ cityId, units }); /* .then(pushHistoryState); */
   };
 
   updateCityResponse({ cityId, latLng, units = this.state.units }) {

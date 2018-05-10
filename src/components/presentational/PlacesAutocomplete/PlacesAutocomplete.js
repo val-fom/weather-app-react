@@ -11,7 +11,10 @@ export default class PlacesAutocomplete extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return nextProps.value !== this.props.value;
+    return (
+      nextProps.value !== this.props.value ||
+      nextProps.isActive !== this.props.isActive
+    );
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -50,15 +53,18 @@ export default class PlacesAutocomplete extends Component {
 
   render() {
     const { predictions } = this.state;
-    console.log('predictions: ', predictions);
+    const { isActive } = this.props;
+
     return (
-      <ul>
+      <ul className={isActive ? '' : 'hidden'}>
         {predictions.map(prediction => (
           <li key={prediction.place_id}>
             <a
-              onClick={() =>
-                this.handleClick(prediction.place_id, prediction.description)
-              }
+              href={`#/${prediction.place_id}`}
+              onClick={ev => {
+                ev.preventDefault();
+                this.handleClick(prediction.place_id, prediction.description);
+              }}
             >
               {prediction.description}
             </a>

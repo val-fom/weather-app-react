@@ -19,6 +19,7 @@ export default class SearchForm extends Component {
   }
 
   state = {
+    isActive: false,
     isValid: true,
     inputValue: null,
     badInputValue: null,
@@ -58,16 +59,18 @@ export default class SearchForm extends Component {
   handleSuggestionClick = (description, latLng) => {
     console.log('description, latLng: ', description, latLng);
     this.setState({ inputValue: description });
-    this.props.searchByLatLng(latLng);
+    this.props.search({ latLng });
   };
 
   render() {
-    const { isValid, inputValue } = this.state;
+    const { isActive, isValid, inputValue } = this.state;
 
     return (
       <Fragment>
         <form onSubmit={this.handleSubmit} className="search-form">
           <input
+            onFocus={() => this.setState({ isActive: true })}
+            onBlur={() => this.setState({ isActive: false })}
             onMouseUp={e => e.target.setSelectionRange(0, 999)}
             onChange={this.handleChange}
             className="search-form__input"
@@ -83,6 +86,7 @@ export default class SearchForm extends Component {
         </form>
         <PlacesAutocomplete
           value={isValid ? inputValue : ''}
+          isActive={isActive}
           handleSuggestionClick={this.handleSuggestionClick}
         />
       </Fragment>
