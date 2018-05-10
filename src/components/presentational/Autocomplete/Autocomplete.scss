@@ -1,3 +1,51 @@
-.hidden {
-	display: none;
+@import "../../../scss/variables";
+
+.autocomplete__container {
+	position: relative;
+}
+
+.autocomplete__ul {
+	position: absolute;
+	background-color: #ffffff;
+	z-index: 1;
+	border: $border;
+	border-radius: 6px;
+	width: 100%;
+	top: 10px;
+	box-shadow: 0px 0px 10px 0px #ccc;
+	padding: 2px;
+	padding-right: 0px;
+	min-height: 101px;
+	&::before {
+		content: "";
+		width: 10%;
+		height: 100%;
+		position: absolute;
+		right: 0;
+		top: 0;
+		border-radius: 6px;
+		cursor: pointer;
+		pointer-events: none;
+		background: linear-gradient(90deg, rgba(255, 255, 255, 0.001), 50%, white);
+	}
+}
+
+.autocomplete__li {
+	overflow: hidden;
+	text-align: left;
+}
+
+.autocomplete__a {
+	display: inline-block;
+	white-space: nowrap;
+	padding: 0.1em 0.3em;
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
+.autocomplete__hidden {
+	position: absolute;
+	top: -9999px;
+	left: -9999px;
 }

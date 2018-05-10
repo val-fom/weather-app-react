@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { geocodeByPlaceId, getLatLng } from '../../../utils/google';
-import PlacesAutocomplete from '../PlacesAutocomplete';
+import Autocomplete from '../Autocomplete';
 import './SearchForm.css';
 
 export default class SearchForm extends Component {
@@ -52,11 +52,13 @@ export default class SearchForm extends Component {
     this.setState({ predictions: null });
   };
 
-  handleChange = ev =>
+  handleChange = ev => {
+    const isActive = !!ev.target.value;
     this.setState({
       inputValue: ev.target.value,
-      isActive: true,
+      isActive,
     });
+  };
 
   handleSubmit = ev => {
     ev.preventDefault();
@@ -101,7 +103,7 @@ export default class SearchForm extends Component {
             <i className="fa fa-search" aria-hidden="true" />
           </button>
         </form>
-        <PlacesAutocomplete
+        <Autocomplete
           isActive={isActive}
           predictions={predictions}
           handleClick={this.handleClick}
