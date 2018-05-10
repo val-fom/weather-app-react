@@ -59,6 +59,7 @@ export default class App extends Component {
   updateCityResponse({ cityId, latLng, units = this.state.units }) {
     return getAllForecast({ cityId, latLng, units })
       .then(nextState => {
+        const cityId = cityId || nextState.weatherResponse.id;
         pushHistoryState({ cityId, units });
         this.setState(nextState);
         return nextState;
