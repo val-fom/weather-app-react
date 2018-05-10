@@ -8,7 +8,14 @@ const Favourites = ({ list, search, add, clear }) => (
       {list
         .map(({ cityName, cityId }) => (
           <li className="favourites__city" key={cityId}>
-            <a onClick={() => search({ cityId })} href={`#/${cityName}`}>
+            <a
+              href={`#/${cityId}`}
+              onClick={ev => {
+                // TODO: move this to the handleClick method
+                ev.preventDefault();
+                search({ cityId });
+              }}
+            >
               {cityName}
             </a>
           </li>

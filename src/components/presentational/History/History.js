@@ -8,8 +8,15 @@ const History = ({ list, search, clear }) => (
       {list
         .map(({ cityName, cityId }) => (
           <li className="history__city" key={cityId}>
-            <a onClick={() => search({ cityId })} href={`#/${cityName}`}>
-              {cityId}
+            <a
+              href={`#/${cityId}`}
+              onClick={ev => {
+                // TODO: move this to the handleClick method
+                ev.preventDefault();
+                search({ cityId });
+              }}
+            >
+              {cityName}
             </a>
           </li>
         ))

@@ -19,33 +19,36 @@ export default class App extends Component {
   state = {
     weatherResponse: null,
     forecastResponse: null,
-    // cityName: null,
-    // cityId: null,
     units: localStorage.getItem('units') || 'metric',
     isFound: true,
   };
 
   componentDidMount() {
-    // window.onpopstate = ev => {
-    //   if (ev.state) {
-    //     const { city, units } = ev.state;
-    //     this.updateCityResponse({ city, units });
-    //   } else {
-    //     const city = getCityIdFromUrl();
-    //     if (city) this.updateCityResponse({ city });
-    //   }
-    // };
+    window.onpopstate = ev => {
+      if (ev.state) {
+        const { cityId, units } = ev.state;
+        this.updateCityResponse({ cityId, units });
+      } else {
+        const cityId = getCityIdFromUrl();
+        if (cityId) this.updateCityResponse({ cityId });
+      }
+    };
 
     this.search({ cityId: 703448 }); // get data for default city (Kyiv)
   }
 
   componentDidUpdate() {
-    // setCityTitle(this.state.city);
+    const { weatherResponse /* , units */ } = this.state;
+    const cityName = `${weatherResponse.name},${weatherResponse.sys.country}`;
+    // const cityId = weatherResponse.id;
+
+    setCityTitle(cityName);
+    // pushHistoryState({ cityId, units });
   }
 
   search = ({ cityId, latLng }) => {
     this.updateCityResponse({ cityId, latLng })
-      .then(pushHistoryState)
+      // .then(pushHistoryState)
       .catch(console.error);
   };
 
@@ -53,13 +56,14 @@ export default class App extends Component {
     const units = this.state.units === 'metric' ? 'imperial' : 'metric';
     localStorage.setItem('units', units);
     this.setState({ units });
-    this.updateCityResponse({ units }).then(pushHistoryState);
+    this.updateCityResponse({ units }); /* .then(pushHistoryState); */
   };
 
   updateCityResponse({ cityId, latLng, units = this.state.units }) {
     return getAllForecast({ cityId, latLng, units })
       .then(this.computeNextState, this.computeNotFoundState)
       .then(nextState => {
+        pushHistoryState({ cityId, units });
         this.setState(nextState);
         return nextState;
       })
@@ -70,18 +74,18 @@ export default class App extends Component {
     weatherResponse,
     forecastResponse,
     units,
-    isFound: true,
+    isFound: true, // TODO: cut out this flag
   });
 
-  computeNotFoundState = () => ({ isFound: false });
+  computeNotFoundState = () => ({ isFound: false }); // TODO: cut out this flag
 
   render() {
-    const { weatherResponse, forecastResponse, isFound, units } = this.state;
+    const { weatherResponse, forecastResponse, units, isFound } = this.state;
 
     if (!weatherResponse) return null;
 
     const cityName = `${weatherResponse.name},${weatherResponse.sys.country}`;
-    const { cityId } = weatherResponse.id;
+    const cityId = weatherResponse.id;
 
     return (
       <Fragment>

@@ -18,10 +18,8 @@ export default class ListContainer extends Component {
 
   add = () => {
     const { cityName, cityId, listName } = this.props;
-    const list = this.state.list
-      .slice()
-      .filter(item => item.cityName !== cityName);
-    // ^ to move existing city to the end of the list
+    const list = this.state.list.slice().filter(item => item.cityId !== cityId);
+    // to move existing city to the end of ^ the list
     list.push({ cityName, cityId });
     localStorage.setItem(listName, JSON.stringify(list));
     this.setState({ list });
@@ -45,12 +43,7 @@ export default class ListContainer extends Component {
     const { ListView, search } = this.props;
 
     return (
-      <ListView
-        list={list}
-        search={this.search}
-        add={this.add}
-        clear={this.clear}
-      />
+      <ListView list={list} search={search} add={this.add} clear={this.clear} />
     );
   }
 }

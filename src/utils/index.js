@@ -10,8 +10,8 @@ export const pushHistoryState = ({ cityId, units }) => {
   if (cityId) window.history.pushState({ cityId, units }, null, `#/${cityId}`);
 };
 
-export const setCityTitle = city => {
-  document.title = `Weather App - ${city}`;
+export const setCityTitle = cityName => {
+  document.title = `Weather App - ${cityName}`;
 };
 
 export const getHours = dt => {
