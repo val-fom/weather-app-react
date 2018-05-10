@@ -3,8 +3,6 @@ const BASE_API_URL = 'https://api.openweathermap.org/data/2.5/';
 const count = `&cnt=${8}`; // 24/3 hour forecast
 
 const get = (apiType, { cityId, latLng, units }) => {
-  console.log('cityId, latLng, units: ', cityId, latLng, units);
-
   const url = cityId
     ? `${BASE_API_URL +
         apiType}?id=${cityId}&APPID=${KEY}&units=${units}${count}`

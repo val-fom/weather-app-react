@@ -77,7 +77,7 @@ export default class App extends Component {
     return (
       <Fragment>
         <Header />
-        <SearchForm cityName={cityName} search={this.search} />
+        <SearchForm search={this.search} />
         <ListContainer
           listName="history"
           ListView={History}

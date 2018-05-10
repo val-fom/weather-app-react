@@ -1,4 +1,4 @@
-export const getCoordinates = result =>
+export const getLatLng = result =>
   new Promise((resolve, reject) => {
     try {
       const latLng = {
