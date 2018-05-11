@@ -60,8 +60,7 @@ export default class App extends Component {
     return getAllForecast({ cityId, latLng, units })
       .then(nextState => {
         this.setState(nextState);
-        const cityId = cityId || nextState.weatherResponse.id;
-        return { cityId, units };
+        return { cityId: nextState.weatherResponse.id, units };
         // for pushHistoryState if needed
       })
       .catch(console.error);

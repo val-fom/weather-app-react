@@ -7,17 +7,17 @@ import './SearchForm.css';
 export default class SearchForm extends Component {
   state = {
     isActive: false,
-    inputValue: null,
-    predictions: null,
+    inputValue: '',
+    predictions: [],
   };
 
   componentDidUpdate(prevProps, prevState) {
     const { inputValue } = this.state;
     if (!inputValue || prevState.inputValue === inputValue) return;
 
-    AUTOCOMPLETE_SERVICE.getPredictions(inputValue).then(predictions =>
-      this.setState({ predictions })
-    );
+    AUTOCOMPLETE_SERVICE.getPredictions(inputValue)
+      .then(predictions => this.setState({ predictions }))
+      .catch(console.error);
   }
 
   searchByPrediction = ({ placeId, description }) => {

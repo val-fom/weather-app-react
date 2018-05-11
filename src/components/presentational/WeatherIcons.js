@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import 'weather-icons-sass/css/weather-icons.css';
 
 const WeatherIcons = ({ id, icon, main, description }) => {
@@ -14,3 +15,10 @@ const WeatherIcons = ({ id, icon, main, description }) => {
 };
 
 export default WeatherIcons;
+
+WeatherIcons.propTypes = {
+  id: PropTypes.number.isRequired,
+  icon: PropTypes.string.isRequired,
+  main: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+};

@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './Autocomplete.css';
 
 const Autocomplete = ({ predictions, isActive, searchByPrediction }) => {
-  if (!predictions) return null;
+  if (!predictions.length) return null;
 
   return (
     <div className="autocomplete__container">
@@ -32,3 +33,9 @@ const Autocomplete = ({ predictions, isActive, searchByPrediction }) => {
 };
 
 export default Autocomplete;
+
+Autocomplete.propTypes = {
+  predictions: PropTypes.array.isRequired,
+  isActive: PropTypes.bool.isRequired,
+  searchByPrediction: PropTypes.func.isRequired,
+};

@@ -11,7 +11,6 @@ const Favourites = ({ list, search, add, clear }) => (
             <a
               href={`#/${cityId}`}
               onClick={ev => {
-                // TODO: move this to the handleClick method
                 ev.preventDefault();
                 search({ cityId });
               }}
@@ -41,16 +40,16 @@ const Favourites = ({ list, search, add, clear }) => (
 
 export default Favourites;
 
-// Favourites.propTypes = {
-//   cityName: PropTypes.string,
-//   cityId: PropTypes.number,
-//   list: PropTypes.array.isRequired,
-//   add: PropTypes.func.isRequired,
-//   clear: PropTypes.func.isRequired,
-//   search: PropTypes.func.isRequired,
-// };
+Favourites.propTypes = {
+  cityName: PropTypes.string,
+  cityId: PropTypes.number,
+  list: PropTypes.array.isRequired,
+  add: PropTypes.func.isRequired,
+  clear: PropTypes.func.isRequired,
+  search: PropTypes.func.isRequired,
+};
 
-// Favourites.defaultProps = {
-//   cityName: undefined,
-//   cityId: undefined,
-// };
+Favourites.defaultProps = {
+  cityName: undefined,
+  cityId: undefined,
+};

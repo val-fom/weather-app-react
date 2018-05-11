@@ -43,10 +43,15 @@ export default class ListContainer extends Component {
   }
 }
 
-// ListContainer.propTypes = {
-//   cityName: PropTypes.string.isRequired,
-//   cityId: PropTypes.number.isRequired,
-//   listName: PropTypes.string.isRequired,
-//   ListView: PropTypes.func.isRequired,
-//   search: PropTypes.func.isRequired,
-// };
+ListContainer.propTypes = {
+  cityName: PropTypes.string,
+  cityId: PropTypes.number,
+  listName: PropTypes.string.isRequired,
+  ListView: PropTypes.func.isRequired,
+  search: PropTypes.func.isRequired,
+};
+
+ListContainer.defaultProps = {
+  cityName: undefined,
+  cityId: undefined,
+};
