@@ -32,8 +32,6 @@ export default class App extends Component {
         if (cityId) this.updateCityResponse({ cityId });
       }
     };
-
-    // this.search({ cityId: 703448 }); // get data for default city (Kyiv)
   }
 
   componentDidUpdate() {
@@ -44,7 +42,9 @@ export default class App extends Component {
   }
 
   search = ({ cityId, latLng }) => {
-    this.updateCityResponse({ cityId, latLng }).catch(console.error);
+    this.updateCityResponse({ cityId, latLng })
+      .then(pushHistoryState)
+      .catch(console.error);
   };
 
   toggleUnits = () => {
@@ -53,16 +53,16 @@ export default class App extends Component {
     const cityId = weatherResponse.id;
     localStorage.setItem('units', units);
     this.setState({ units });
-    this.updateCityResponse({ cityId, units });
+    this.updateCityResponse({ cityId, units }).then(pushHistoryState);
   };
 
   updateCityResponse({ cityId, latLng, units = this.state.units }) {
     return getAllForecast({ cityId, latLng, units })
       .then(nextState => {
-        const cityId = cityId || nextState.weatherResponse.id;
-        pushHistoryState({ cityId, units });
         this.setState(nextState);
-        return nextState;
+        const cityId = cityId || nextState.weatherResponse.id;
+        return { cityId, units };
+        // for pushHistoryState if needed
       })
       .catch(console.error);
   }
