@@ -6,4 +6,4 @@ This is the version of [weather-app](https://github.com/val-fom/assignments_val-
 
 ## Version History
 
-* **_version 0.2.0_** - add google-places autocomplete
+* **_version 0.2.0_** - add Google Places API (AutocompleteService)
