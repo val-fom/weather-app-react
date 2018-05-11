@@ -4,9 +4,7 @@ import './Header.css';
 
 const Header = () => (
   <header className="header">
-    <h1 className="header__heading">
-      <a href="/">Weather App</a>
-    </h1>
+    <h1 className="header__heading">Weather App</h1>
     <img
       src={logo}
       className="header__react-logo"
