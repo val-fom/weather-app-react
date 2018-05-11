@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { geocodeByPlaceId, getLatLng } from '../../../utils/google';
+import { AUTOCOMPLETE_SERVICE } from '../../../utils/autocomplete-service';
 import Autocomplete from '../../presentational/Autocomplete';
 import './SearchForm.css';
 
@@ -11,43 +11,23 @@ export default class SearchForm extends Component {
     predictions: null,
   };
 
-  componentDidMount() {
-    this.autocomplete = new window.google.maps.places.AutocompleteService();
-  }
-
   componentDidUpdate(prevProps, prevState) {
     const { inputValue } = this.state;
     if (!inputValue || prevState.inputValue === inputValue) return;
 
-    this._getPredictions(inputValue).then(predictions =>
+    AUTOCOMPLETE_SERVICE.getPredictions(inputValue).then(predictions =>
       this.setState({ predictions })
     );
   }
 
-  _getPredictions(input) {
-    return new Promise((resolve, reject) => {
-      this.autocomplete.getPlacePredictions(
-        { input },
-        (predictions, status) => {
-          if (status !== 'OK') {
-            reject(status);
-          }
-          resolve(predictions);
-        }
-      );
-    }).then(predictions =>
-      predictions.map(prediction => ({
-        description: prediction.description,
-        placeId: prediction.place_id,
-      }))
-    );
-  }
-
-  handleClick = ({ placeId, description }) => {
-    geocodeByPlaceId(placeId)
-      .then(getLatLng)
+  searchByPrediction = ({ placeId, description }) => {
+    AUTOCOMPLETE_SERVICE.getLatLng(placeId)
       .then(latLng => {
-        this.handleSuggestionClick({ description, latLng });
+        this.setState({
+          inputValue: description,
+          isActive: false,
+        });
+        this.props.search({ latLng });
       })
       .catch(console.error);
   };
@@ -63,16 +43,7 @@ export default class SearchForm extends Component {
     ev.preventDefault();
     const { inputValue, predictions } = this.state;
     if (!inputValue) return;
-    this.handleClick(predictions[0]);
-  };
-
-  handleSuggestionClick = ({ description, latLng }) => {
-    console.log('description, latLng: ', description, latLng);
-    this.setState({
-      inputValue: description,
-      isActive: false,
-    });
-    this.props.search({ latLng });
+    this.searchByPrediction(predictions[0]);
   };
 
   render() {
@@ -102,7 +73,7 @@ export default class SearchForm extends Component {
         <Autocomplete
           isActive={isActive}
           predictions={predictions}
-          handleClick={this.handleClick}
+          searchByPrediction={this.searchByPrediction}
         />
       </Fragment>
     );

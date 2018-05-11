@@ -1,7 +1,7 @@
 import React from 'react';
 import './Autocomplete.css';
 
-const Autocomplete = ({ predictions, isActive, handleClick }) => {
+const Autocomplete = ({ predictions, isActive, searchByPrediction }) => {
   if (!predictions) return null;
 
   return (
@@ -16,7 +16,7 @@ const Autocomplete = ({ predictions, isActive, handleClick }) => {
               href={`#/${prediction.placeId}`}
               onClick={ev => {
                 ev.preventDefault();
-                handleClick({
+                searchByPrediction({
                   placeId: prediction.placeId,
                   description: prediction.description,
                 });
