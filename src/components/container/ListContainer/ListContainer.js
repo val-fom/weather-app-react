@@ -18,6 +18,7 @@ export default class ListContainer extends Component {
 
   add = () => {
     const { cityName, cityId, listName } = this.props;
+    if (!cityName) return;
     const list = this.state.list.slice().filter(item => item.cityId !== cityId);
     // to move existing city to the end of ^ the list
     list.push({ cityName, cityId });
@@ -31,12 +32,6 @@ export default class ListContainer extends Component {
     this.setState({ list: [] });
     this.forceUpdate(); // to force update skipping SCU
   };
-
-  // handleClick = ev => {
-  //   ev.preventDefault();
-  //   const city = ev.target.innerHTML;
-  //   this.props.search(city);
-  // };
 
   render() {
     const { list } = this.state;

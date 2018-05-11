@@ -22,13 +22,15 @@ const History = ({ list, search, clear }) => (
         ))
         .reverse()}
     </ul>
-    <button
-      onClick={clear}
-      className="history__clear-button button"
-      title="clear history"
-    >
-      <i>+</i>
-    </button>
+    {list.length ? (
+      <button
+        onClick={clear}
+        className="history__clear-button button"
+        title="clear history"
+      >
+        <i>+</i>
+      </button>
+    ) : null}
   </div>
 );
 
