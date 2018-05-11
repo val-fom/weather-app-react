@@ -33,7 +33,7 @@ export default class App extends Component {
       }
     };
 
-    this.search({ cityId: 703448 }); // get data for default city (Kyiv)
+    // this.search({ cityId: 703448 }); // get data for default city (Kyiv)
   }
 
   componentDidUpdate() {
@@ -70,7 +70,19 @@ export default class App extends Component {
   render() {
     const { weatherResponse, forecastResponse, units } = this.state;
 
-    if (!weatherResponse) return null;
+    if (!weatherResponse)
+      return (
+        <Fragment>
+          <Header />
+          <SearchForm search={this.search} />
+          <ListContainer
+            listName="history"
+            ListView={History}
+            search={this.search}
+          />
+          <Footer />
+        </Fragment>
+      );
 
     const cityName = `${weatherResponse.name},${weatherResponse.sys.country}`;
     const cityId = weatherResponse.id;
