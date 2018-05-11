@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { geocodeByPlaceId, getLatLng } from '../../../utils/google';
-import Autocomplete from '../Autocomplete';
+import Autocomplete from '../../presentational/Autocomplete';
 import './SearchForm.css';
 
 export default class SearchForm extends Component {
