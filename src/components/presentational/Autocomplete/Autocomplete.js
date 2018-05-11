@@ -10,14 +10,14 @@ const Autocomplete = ({ predictions, isActive, handleClick }) => {
         className={`autocomplete__ul${isActive ? '' : ' autocomplete__hidden'}`}
       >
         {predictions.map(prediction => (
-          <li className="autocomplete__li" key={prediction.place_id}>
+          <li className="autocomplete__li" key={prediction.placeId}>
             <a
               className="autocomplete__a"
-              href={`#/${prediction.place_id}`}
+              href={`#/${prediction.placeId}`}
               onClick={ev => {
                 ev.preventDefault();
                 handleClick({
-                  placeId: prediction.place_id,
+                  placeId: prediction.placeId,
                   description: prediction.description,
                 });
               }}

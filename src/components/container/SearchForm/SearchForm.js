@@ -16,29 +16,30 @@ export default class SearchForm extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.inputValue !== this.state.inputValue) {
-      this._getPredictions(this.state.inputValue);
-    }
+    const { inputValue } = this.state;
+    if (!inputValue || prevState.inputValue === inputValue) return;
+
+    this._getPredictions(inputValue).then(predictions =>
+      this.setState({ predictions })
+    );
   }
 
-  _getPredictions(value) {
-    if (!value) return;
-    this.autocomplete.getPlacePredictions(
-      {
-        input: value,
-        type: '(cities)',
-      },
-      (predictions, status) => {
-        console.log('status: ', status);
-        console.log('source_predictions: ', predictions);
-        if (status === 'OK')
-          this.setState({
-            predictions: predictions.map(prediction => ({
-              description: prediction.description,
-              place_id: prediction.place_id,
-            })),
-          });
-      }
+  _getPredictions(input) {
+    return new Promise((resolve, reject) => {
+      this.autocomplete.getPlacePredictions(
+        { input },
+        (predictions, status) => {
+          if (status !== 'OK') {
+            reject(status);
+          }
+          resolve(predictions);
+        }
+      );
+    }).then(predictions =>
+      predictions.map(prediction => ({
+        description: prediction.description,
+        placeId: prediction.place_id,
+      }))
     );
   }
 
@@ -49,25 +50,20 @@ export default class SearchForm extends Component {
         this.handleSuggestionClick({ description, latLng });
       })
       .catch(console.error);
-    this.setState({ predictions: null });
   };
 
   handleChange = ev => {
-    const isActive = !!ev.target.value;
     this.setState({
       inputValue: ev.target.value,
-      isActive,
+      isActive: !!ev.target.value,
     });
   };
 
   handleSubmit = ev => {
     ev.preventDefault();
-    const { predictions } = this.state;
-    if (!predictions) return;
-    this.handleClick({
-      placeId: predictions[0].place_id,
-      description: predictions[0].description,
-    });
+    const { inputValue, predictions } = this.state;
+    if (!inputValue) return;
+    this.handleClick(predictions[0]);
   };
 
   handleSuggestionClick = ({ description, latLng }) => {
