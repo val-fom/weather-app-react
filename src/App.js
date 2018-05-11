@@ -27,11 +27,11 @@ export default class App extends Component {
       if (ev.state) {
         const { cityId, units } = ev.state;
         this.updateCityResponse({ cityId, units });
-      } else {
-        const cityId = getCityIdFromUrl();
-        if (cityId) this.updateCityResponse({ cityId });
       }
     };
+
+    const cityId = getCityIdFromUrl();
+    if (cityId) this.search({ cityId });
   }
 
   componentDidUpdate() {
